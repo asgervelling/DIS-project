@@ -16,6 +16,7 @@ import { billNo } from "./bill-no";
 import { integer } from "./integer";
 import { number } from "./number";
 import { category } from "./category";
+import { PosRecord } from "../pos-record";
 
 export const posRecord = sequenceOf([
   date,
@@ -64,7 +65,7 @@ export const posRecord = sequenceOf([
     discount,
     total,
     category,
-  })
+  }) as PosRecord
 );
 
 // console.log(posRecord.run(
