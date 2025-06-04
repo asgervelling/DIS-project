@@ -9,4 +9,4 @@ const billNoInner = (0, arcsecond_1.sequenceOf)([(0, arcsecond_1.char)("G"), arc
     .map((xs) => xs.join(""));
 exports.billNo = (0, arcsecond_1.sequenceOf)([(0, arcsecond_1.char)('"'), billNoInner, (0, arcsecond_1.char)('"')])
     .map(([, b,]) => b);
-console.log(exports.billNo.run('"G04701152"'));
+console.log(exports.billNo.run('"G0470115"'));

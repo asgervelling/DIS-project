@@ -1,4 +1,6 @@
 "use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.date = void 0;
 /**
  * <date> ::= '"' <innerDate> '"'
  *
@@ -16,8 +18,6 @@
  * <digit>      ::= "0" | "1" | ... | "9"
  * <sign>       ::= "+" | "-"
  */
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.date = void 0;
 const arcsecond_1 = require("arcsecond");
 const sign = (0, arcsecond_1.choice)([(0, arcsecond_1.char)("+"), (0, arcsecond_1.char)("-")]);
 const tzChar = (0, arcsecond_1.choice)([arcsecond_1.letter, (0, arcsecond_1.char)(" ")]);
