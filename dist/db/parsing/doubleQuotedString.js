@@ -17,4 +17,4 @@ const character = (0, arcsecond_1.choice)([escapedQuote, unescapedChar]);
 const characters = (0, arcsecond_1.many)(character)
     .map((xs) => xs.join(""));
 exports.doubleQuotedString = (0, arcsecond_1.sequenceOf)([(0, arcsecond_1.char)('"'), characters, (0, arcsecond_1.char)('"')])
-    .map(([, string,]) => string);
+    .map(([, string,]) => string.trim());

@@ -25,4 +25,4 @@ const characters = many(character)
 
 export const doubleQuotedString =
   sequenceOf([char('"'), characters, char('"')])
-  .map(([, string, ]) => string);
+  .map(([, string, ]) => string.trim());
