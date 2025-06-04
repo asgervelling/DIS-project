@@ -36,10 +36,14 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const fs = __importStar(require("fs"));
 const path = __importStar(require("path"));
 const pg_1 = require("pg");
+const dotenv = __importStar(require("dotenv"));
+dotenv.config();
 const client = new pg_1.Client({ connectionString: process.env.DATABASE_URL });
 async function resetDB() {
-    const query = fs.readFileSync(path.join(process.cwd(), "src/db/init/01-schema.sql"), "utf-8");
+    const schemaPath = path.join(process.cwd(), "db/init/01-schema.sql");
     try {
+        const query = fs.readFileSync(schemaPath, "utf-8");
+        await client.connect();
         await client.query(query);
         console.log("Reset database. Tables are empty.");
     }
@@ -47,7 +51,7 @@ async function resetDB() {
         console.error("Error resetting database:", error);
     }
     finally {
-        await client.end();
+        client.end();
     }
 }
 resetDB();

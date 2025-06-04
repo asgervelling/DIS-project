@@ -1,26 +1,65 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
-
-## Getting Started
-
-First, run the development server:
-
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
-
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
-
 # Dashboard for Point-of-Sales Data
 
 - Dataset: [Point-of-sales (POS) data from a café (Kaggle)](https://www.kaggle.com/datasets/ankitverma2010/cafe-data)
   - Dataset used to seed the database, but it will be possible to simulate POS transaction events.
 - Task: Create a dashboard that will give the business owner an overview over his sales.
+
+### Database Setup
+
+#### Postgres
+
+The database is dockerized and defined in `docker-compose.yaml`. \
+To get it running, you will need Docker. Run
+
+```bash
+# Might need sudo, depending on Docker installation
+sudo docker compose up -d
+```
+
+You can check that the records have been created by running postgres in the docker container:
+
+```bash
+# You might have to remove other containers named postgres first,
+# if you are a TA and grading this
+sudo docker exec -it postgres bash
+```
+
+#### Seeding the Database
+
+Now that you have a postgres instance up and running, you can start populating the database. \
+To do so, you will need npm. Running
+
+```bash
+npm run db:seed:small
+```
+
+will do the following:
+- Compile various scripts to do with the database.
+- Creates a more current version of the dataset from 2010, where the date of the last record is the current date.
+- Uses that dataset to populate the database.
+
+The command above does so with a small dataset of only 20 rows, in case something goes wrong. If everything goes well, and there are no errors, go ahead and populate the database with these 145830 records (it might take a while):
+
+```bash
+npm run db:seed:full
+```
+
+To check that the database was corrected populated, open postgres inside the docker container and do a query:
+
+```bash
+sudo docker exec -it postgres bash
+psql -U postgres pos_dashboard
+```
+
+For example,
+
+```sql
+SELECT COUNT(*) FROM transaction_items;
+ count  
+--------
+ 145830
+(1 row)
+```
 
 ### Transaction Schema
 

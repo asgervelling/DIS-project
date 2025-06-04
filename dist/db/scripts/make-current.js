@@ -33,23 +33,25 @@ var __importStar = (this && this.__importStar) || (function () {
     };
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
+/**
+ * This script should be run prior to seeding the database.
+ *
+ * Our dataset is from around 2010. In order to make it a little
+ * easier to work with, we have this script, which will take
+ * as input a CSV file used to seed the database, and output another
+ * CSV file where the dates are more current.
+ * The last day in the dataset will be used to measure a time delta
+ * to add to each day in that dataset.
+ * The resulting dataset will be written to a new location.
+ *
+ * This will be beneficial for seeing INSERT statements reflected in the dashboard.
+ *
+ * Usage: node make-current.js <inputPath> <outputPath>
+ */
 const fs = __importStar(require("node:fs"));
 const readline = __importStar(require("node:readline"));
 const parse = __importStar(require("../parsing"));
 const transform_dataset_1 = require("../transform-dataset");
-/*
-This script should be run prior to seeding the database.
-
-Our dataset is from around 2010. In order to make it a little
-easier to work with, we have this script, which will take
-as input a CSV file used to seed the database, and output another
-CSV file where the dates are more current.
-The last day in the dataset will be used to measure a time delta
-to add to each day in that dataset.
-The resulting dataset will be written to a new location.
-
-This will be beneficial for seeing INSERT statements reflected in the dashboard.
-*/
 const NOW = new Date();
 async function makeCurrent() {
     const latestDate = await getLatestDate(INPUT_DATASET);

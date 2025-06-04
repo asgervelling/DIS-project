@@ -8,7 +8,13 @@
     "start": "next start",
     "lint": "next lint",
     "build:scripts": "tsc --project tsconfig.scripts.json",
-    "resetdb": "npm run build:scripts && node dist/db/scripts/reset-db.js"
+    "db:seed:full": "npm run build:scripts && npm run makecurrent:full && npm run db:reset && npm run db:populate:full",
+    "db:seed:small": "npm run build:scripts && npm run makecurrent:small && npm run db:reset && npm run db:populate:small",
+    "makecurrent:full": "node dist/db/scripts/make-current.js data/Cafe_Data.csv data/Cafe_Data_current.csv",
+    "makecurrent:small": "node dist/db/scripts/make-current.js data/Cafe_Data_20_rows.csv data/Cafe_Data_20_rows_current.csv",
+    "db:reset": "node dist/db/scripts/reset-db.js",
+    "db:populate:full": "node dist/db/scripts/populate-db.js data/Cafe_Data_current.csv",
+    "db:populate:small": "node dist/db/scripts/populate-db.js data/Cafe_Data_20_rows_current.csv"
   },
   "dependencies": {
     "@radix-ui/react-dialog": "^1.1.14",
@@ -44,7 +50,7 @@
     "eslint-config-next": "15.3.1",
     "tailwindcss": "^4",
     "tw-animate-css": "^1.2.8",
-    "typescript": "^5"
+    "typescript": "^5.8.3"
   },
   "overrides": {
     "react-is": "^19.0.0-rc-69d4b800-20241021"
