@@ -19,8 +19,6 @@
 import { char, choice, digit, fail, letter, many, sequenceOf, str, succeedWith } from "arcsecond";
 import { doubleQuotedString } from "./doubleQuotedString";
 
-const dateExample = '"Thu Apr 01 2010 15:15:11 GMT+0200 (Central European Summer Time)"';
-
 const sign = choice([char("+"), char("-")]);
 const tzChar = choice([letter, char(" ")]);
 const tzChars = many(tzChar)
