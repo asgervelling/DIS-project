@@ -23,6 +23,7 @@ CREATE TABLE menu_items (
 
     cid           UUID NOT NULL,
     FOREIGN KEY (cid) REFERENCES categories(cid)
+    UNIQUE (name, cid)
 );
 
 CREATE TABLE transactions (

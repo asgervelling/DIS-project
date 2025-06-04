@@ -1,7 +1,8 @@
 import * as fs from "fs";
 import * as path from "path";
+import { Client } from "pg";
 
-import { pool } from "../../lib/db";
+const client = new Client({ connectionString: process.env.DATABASE_URL });
 
 async function resetDB() {
   const query = fs.readFileSync(
@@ -10,12 +11,12 @@ async function resetDB() {
   );
 
   try {
-    await pool.query(query);
+    await client.query(query);
     console.log("Reset database. Tables are empty.");
   } catch (error) {
     console.error("Error resetting database:", error);
   } finally {
-    await pool.end();
+    await client.end();
   }
 }
 

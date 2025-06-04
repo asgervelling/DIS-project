@@ -35,18 +35,19 @@ var __importStar = (this && this.__importStar) || (function () {
 Object.defineProperty(exports, "__esModule", { value: true });
 const fs = __importStar(require("fs"));
 const path = __importStar(require("path"));
-const db_1 = require("../../lib/db");
+const pg_1 = require("pg");
+const client = new pg_1.Client({ connectionString: process.env.DATABASE_URL });
 async function resetDB() {
     const query = fs.readFileSync(path.join(process.cwd(), "src/db/init/01-schema.sql"), "utf-8");
     try {
-        await db_1.pool.query(query);
+        await client.query(query);
         console.log("Reset database. Tables are empty.");
     }
     catch (error) {
         console.error("Error resetting database:", error);
     }
     finally {
-        await db_1.pool.end();
+        await client.end();
     }
 }
 resetDB();
