@@ -21,4 +21,4 @@ const escapedQuote = sequenceOf([str("\\"), anyOfString(`"'`)])
   .map((xs) => xs.join(""));
 const character = choice([escapedQuote, unescapedChar]);
 const characters = many(character);
-const doubleQuotedString = between(char('"'))(char('"'))(characters);
+export const doubleQuotedString = between(char('"'))(char('"'))(characters);
