@@ -11,4 +11,4 @@ exports.category = void 0;
  */
 const double_quoted_string_1 = require("./double-quoted-string");
 exports.category = double_quoted_string_1.doubleQuotedString;
-console.log(exports.category.run('"BEVERAGE"'));
+// console.log(category.run('"BEVERAGE"'));

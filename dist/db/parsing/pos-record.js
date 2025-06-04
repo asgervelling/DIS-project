@@ -47,4 +47,6 @@ exports.posRecord = (0, arcsecond_1.sequenceOf)([
     total,
     category,
 }));
-console.log(exports.posRecord.run(`"Thu Apr 01 2010 15:21:34 GMT+0200 (Central European Summer Time)","G0470118","MASALA CHAI CUTTING           ","1","40","9.5","0","49.5","BEVERAGE"`));
+// console.log(posRecord.run(
+//   `"Thu Apr 01 2010 15:21:34 GMT+0200 (Central European Summer Time)","G0470118","MASALA CHAI CUTTING           ","1","40","9.5","0","49.5","BEVERAGE"`
+// ))
