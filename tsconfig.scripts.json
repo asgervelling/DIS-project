@@ -13,5 +13,5 @@
       "@/*": ["*"]
     }
   },
-  "include": ["src/db/scripts/**/*"]
+  "include": ["src/db/scripts/**/*", "src/db/parsing/**/*"]
 }

@@ -15,6 +15,6 @@ It works like this:
 
 This will be beneficial for seeing INSERT statements reflected in the dashboard.
 */
-function timeOffset(td_latest, tc) {
-    return tc.getTime() - td_latest.getTime();
-}
+// function timeOffset(td_latest: Date, tc: Date) {
+//   return tc.getTime() - td_latest.getTime();
+// }
