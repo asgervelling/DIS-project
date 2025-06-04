@@ -22,6 +22,7 @@ data/Cafe_Data_current.csv
 /out/
 .next/
 dist/
+.vscode
 
 # production
 /build
