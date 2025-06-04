@@ -17,10 +17,8 @@
  * <sign>       ::= "+" | "-"
  */
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.dddate = exports.date = void 0;
+exports.date = void 0;
 const arcsecond_1 = require("arcsecond");
-const doubleQuotedString_1 = require("./doubleQuotedString");
-const dateExample = '"Thu Apr 01 2010 15:15:11 GMT+0200 (Central European Summer Time)"';
 const sign = (0, arcsecond_1.choice)([(0, arcsecond_1.char)("+"), (0, arcsecond_1.char)("-")]);
 const tzChar = (0, arcsecond_1.choice)([arcsecond_1.letter, (0, arcsecond_1.char)(" ")]);
 const tzChars = (0, arcsecond_1.many)(tzChar)
@@ -52,15 +50,4 @@ const innerDate = (0, arcsecond_1.sequenceOf)([
 ]).map((xs) => xs.join(""));
 exports.date = (0, arcsecond_1.sequenceOf)([(0, arcsecond_1.char)('"'), innerDate, (0, arcsecond_1.char)('"')])
     .map(([, d,]) => new Date(d));
-// console.log(date.run(dateExample));
-console.log(doubleQuotedString_1.doubleQuotedString.run(dateExample));
-// const dddate = pipeParsers([doubleQuotedString, innerDate]);
-exports.dddate = doubleQuotedString_1.doubleQuotedString.chain(string => {
-    if (!string)
-        return (0, arcsecond_1.fail)("ParseError: Empty string. Expected date string.");
-    const result = innerDate.run(string);
-    if (result.isError)
-        return (0, arcsecond_1.fail)(result.error);
-    return (0, arcsecond_1.succeedWith)(new Date(string));
-});
-console.log(exports.dddate.run(dateExample));
+// console.log(date.run('"Thu Apr 01 2010 15:15:11 GMT+0200 (Central European Summer Time)"'));

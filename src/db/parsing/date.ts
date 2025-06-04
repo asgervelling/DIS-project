@@ -15,9 +15,7 @@
  * <digit>      ::= "0" | "1" | ... | "9"
  * <sign>       ::= "+" | "-"
  */
-
-import { char, choice, digit, fail, letter, many, sequenceOf, str, succeedWith } from "arcsecond";
-import { doubleQuotedString } from "./doubleQuotedString";
+import { char, choice, digit, letter, many, sequenceOf, str } from "arcsecond";
 
 const sign = choice([char("+"), char("-")]);
 const tzChar = choice([letter, char(" ")]);
@@ -49,9 +47,7 @@ const innerDate = sequenceOf([
   year, char(" "), time, char(" "), tzOffset, char(" "), tzName
 ]).map((xs) => xs.join(""));
 
-export const date = doubleQuotedString.chain(string => {
-  if (!string) return fail("ParseError: Empty string. Expected date string.");
-  const result = innerDate.run(string);
-  if (result.isError) return fail(result.error);
-  return succeedWith(new Date(string));
-});
+export const date = sequenceOf([char('"'), innerDate, char('"')])
+  .map(([, d, ]) => new Date(d));
+
+// console.log(date.run('"Thu Apr 01 2010 15:15:11 GMT+0200 (Central European Summer Time)"'));
