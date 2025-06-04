@@ -20,6 +20,8 @@ data/Cafe_Data_current.csv
 # next.js
 /.next/
 /out/
+.next/
+dist/
 
 # production
 /build
