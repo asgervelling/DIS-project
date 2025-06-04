@@ -1,4 +1,5 @@
-/* 
+"use strict";
+/*
 This script should be run prior to seeding the database.
 
 Our dataset is from around 2010. In order to make it a little
@@ -14,7 +15,6 @@ It works like this:
 
 This will be beneficial for seeing INSERT statements reflected in the dashboard.
 */
-
-function timeOffset(td_latest: Date, tc: Date) {
-  return tc.getTime() - td_latest.getTime();
+function timeOffset(td_latest, tc) {
+    return tc.getTime() - td_latest.getTime();
 }
