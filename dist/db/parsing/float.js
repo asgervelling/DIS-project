@@ -27,12 +27,11 @@ const decimal = (0, arcsecond_1.choice)([
 ]);
 exports.float = (0, arcsecond_1.sequenceOf)([(0, arcsecond_1.char)('"'), decimal, (0, arcsecond_1.char)('"')])
     .map(([, f,]) => Number(f));
-console.log(exports.float.run('"0.0"'));
-console.log(exports.float.run('"2.324001"'));
-console.log(exports.float.run('"-2.324001"'));
-console.log(exports.float.run('"50.00"'));
-console.log(exports.float.run('"0.123456"'));
-console.log(exports.float.run('"0"'));
-console.log(exports.float.run('"-0.00"'));
-console.log(exports.float.run('".1"'));
-console.log(exports.float.run('"1"'));
+// console.log(float.run('"0.0"'));
+// console.log(float.run('"2.324001"'));
+// console.log(float.run('"-2.324001"'));
+// console.log(float.run('"0.123456"'));
+// console.log(float.run('"0"'));
+// console.log(float.run('"-0.00"'));
+// console.log(float.run('".1"'));
+// console.log(float.run('"1"'));
