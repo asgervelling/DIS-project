@@ -1,0 +1,18 @@
+services:
+  postgres:
+    image: postgres:16
+    container_name: postgres
+    restart: always
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: pos_dashboard
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      # This will initialize the database when the container first starts
+      - ./db/init:/docker-entrypoint-initdb.d
+
+volumes:
+  postgres_data:
