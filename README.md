@@ -4,11 +4,19 @@
   - Dataset used to seed the database, but it will be possible to simulate POS transaction events.
 - Task: Create a dashboard that will give the business owner an overview over his sales.
 
+### Installation
+
+You will need npm and Docker. From the root of the directory, run
+
+```bash
+npm install
+```
+
 ### Database Setup
 
 #### Postgres
 
-The database is dockerized and defined in `docker-compose.yaml`. \
+The database's docker container is defined in `docker-compose.yaml`. \
 To get it running, you will need Docker. Run
 
 ```bash
@@ -53,10 +61,29 @@ For example,
 
 ```sql
 SELECT COUNT(*) FROM transaction_items;
- count  
---------
- 145830
-(1 row)
+```
+
+### Run the Server
+
+To compile and run the server, run
+
+```bash
+npm run build
+npm run start
+```
+
+After which you will get a link to localhost port 3000:
+
+```
+> project@0.1.0 start
+> next start
+
+   ▲ Next.js 15.3.1
+   - Local:        http://localhost:3000
+   - Network:      http://192.168.0.222:3000
+
+ ✓ Starting...
+ ✓ Ready in 679ms
 ```
 
 ### Transaction Schema
@@ -88,6 +115,31 @@ Don't know the canonical way to express this, but:
 - Categories: `cid`
 
 ![er_diagram](readme/dis_project_ER_ver_2.drawio.png)
+
+### Parsing and Database Modules
+
+As per the assignment, I have created parsers from context-free grammars. They are located in `src/db/parsing/`. \
+These parsers are used in seeding the database.
+
+Most modules relevant to this course live inside `src/db`:
+
+```
+src/db
+├── parsing
+│   ├── bill-no.ts
+│   ├── category.ts
+│   ├── date.ts
+│   ├── ...
+│   └── pos-record.ts
+├── pos-record.ts
+├── read-dataset.ts
+├── scripts
+│   ├── make-current.ts
+│   ├── populate-db.ts
+│   └── reset-db.ts
+├── serialize.ts
+└── transform-dataset.ts
+```
 
 ### Components of the Dashboard
 
