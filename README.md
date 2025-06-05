@@ -146,7 +146,7 @@ src/db
 Site will include two pages:
 
 - Dashboard
-- New transaction
+- ~~New transaction~~ (I did not have time for this)
 
 In 'New transaction', the user can simulate a transaction (a sale). User will choose some items to "buy". The transaction will be reflected in the dashboard.
 
@@ -162,6 +162,7 @@ It includes a global period picker (24H, 7D, 30D, YTD, 1Y and Max) and
   - Sales over time (line chart)
   - Top products by profit (bar chart, top 5)
 - Transactions (scrollable list view, by date, descending)
+  - I did not have time for this one, but a mock data version is included in the dashboard.
 
 All in rupees, since the dataset is Indian.
 
