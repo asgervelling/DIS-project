@@ -28,6 +28,8 @@ import { DataTable } from "@/components/data-table";
 import * as mockData from "@/components/data-table/mock-data";
 import { columns } from "@/components/data-table/columns";
 import { PeriodPicker } from "@/components/period-picker";
+import { usePeriod } from "@/context/period-context";
+import { useKpi } from "@/hooks/use-kpi";
 
 export default function Page() {
   return (
@@ -97,6 +99,13 @@ type DummyKPICardProps = {
   value: string;
   pctChange: number;
 };
+
+// function KPICardTotalRevenue() {
+//   const { period } = usePeriod();
+//   const { date, error, isLoading } = useKpi("/api/total-revenue", period)
+// }
+
+function KPICard() {}
 
 function DummyKPICard({ label, value, pctChange }: DummyKPICardProps) {
   return (
