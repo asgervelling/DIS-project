@@ -24,6 +24,8 @@ export default function TotalCost() {
   const current = Number(data.current.total_cost);
   const previous = Number(data.previous.total_cost);
 
+  console.log("Total cost:", period, current, previous);
+
   if (!Number.isFinite(current) || !Number.isFinite(previous)) {
     return (
       <KPICard

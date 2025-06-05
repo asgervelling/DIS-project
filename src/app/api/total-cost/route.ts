@@ -13,23 +13,24 @@ export async function GET(req: NextRequest) {
     const period = req.nextUrl.searchParams.get("period") ?? "7d";
     const intervals = intervalPair(period);
 
-    const current = await pool.query(
-      `SELECT SUM(i.cost * t.quantity) as total_cost
+    const c = `SELECT SUM(i.cost * t.quantity) as total_cost
       FROM transaction_items t
       JOIN menu_items i
       ON t.iid = i.iid
       JOIN transactions tr ON t.tid = tr.tid
       WHERE ${intervals.current}`
-    );
+    const current = await pool.query(c);
     
-    const previous = await pool.query(
-      `SELECT SUM(i.cost * t.quantity) as total_cost
+    const p = `SELECT SUM(i.cost * t.quantity) as total_cost
       FROM transaction_items t
       JOIN menu_items i
       ON t.iid = i.iid
       JOIN transactions tr ON t.tid = tr.tid
       WHERE ${intervals.previous}`
-    );
+    const previous = await pool.query(p);
+
+    console.log(c);
+    console.log(p);
     
     return NextResponse.json({ 
       current: current.rows[0],
