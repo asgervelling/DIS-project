@@ -1,7 +1,11 @@
 import { Period } from "@/period";
 
-// Give the transaction an alias 'tr'. This is a little bit
-// hacky, but kinda works. It's fine, don't fix it. Other priorities
+/**
+ * Hacky solution to an urgent problem: Querying by period.
+ * You can use this function to create a WHERE clause from a Period,
+ * as long as you have joined with `transactions tr` (with that alias).
+ * It is the transactions relation that has the date attribute.
+ */
 export function whereClauseOfPeriod(period: Period | string): string {
   switch (period) {
     case "24h": return "WHERE tr.date >= now() - interval '1 day'";
