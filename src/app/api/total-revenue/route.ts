@@ -1,5 +1,6 @@
 import { pool } from "@/lib/db";
 import { NextRequest, NextResponse } from "next/server";
+
 import { whereClauseOfPeriod } from "../utils/where-period";
 
 /**

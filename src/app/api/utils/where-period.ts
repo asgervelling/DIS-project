@@ -1,6 +1,7 @@
 import { Period } from "@/period";
 
-// Give the transaction an alias 'tr'
+// Give the transaction an alias 'tr'. This is a little bit
+// hacky, but kinda works. It's fine, don't fix it. Other priorities
 export function whereClauseOfPeriod(period: Period | string): string {
   switch (period) {
     case "24h": return "WHERE tr.date >= now() - interval '1 day'";
