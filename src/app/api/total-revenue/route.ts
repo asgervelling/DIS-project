@@ -1,3 +1,6 @@
+import { pool } from "@/lib/db";
+import { NextResponse } from "next/server";
+
 /**
  * Total revenue = sum (rate * quantity + tax - discount).
  * 
@@ -6,6 +9,13 @@
  */
 export async function GET() {
   try {
-    const 
+    const { rows } = await pool.query(
+      `SELECT SUM(rate * quantity + tax - discount)
+      AS total_revenue FROM transaction_items`
+    );
+    const total_revenue = rows[0]["total_revenue"];
+    return NextResponse.json({ total_revenue });
+  } catch (error) {
+    return NextResponse.json({ error }, { status: 500 });
   }
 }
