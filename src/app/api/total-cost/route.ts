@@ -28,9 +28,6 @@ export async function GET(req: NextRequest) {
       JOIN transactions tr ON t.tid = tr.tid
       WHERE ${intervals.previous}`
     const previous = await pool.query(p);
-
-    console.log(c);
-    console.log(p);
     
     return NextResponse.json({ 
       current: current.rows[0],

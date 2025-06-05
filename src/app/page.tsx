@@ -5,6 +5,7 @@ import * as mockData from "@/components/data-table/mock-data";
 import { columns } from "@/components/data-table/columns";
 import { PeriodPicker } from "@/components/period-picker";
 import * as kpiCards from "@/components/kpi-cards";
+import { SalesOverTimeChart } from "@/components/sales-over-time-chart";
 
 export default function Page() {
   return (
@@ -22,7 +23,7 @@ export default function Page() {
       </div>
       {/* Row 2 */}
       <div className="grid auto-rows-min gap-4 md:grid-cols-2">
-        <SampleChart />
+        <SalesOverTimeChart />
         <SampleChart />
       </div>
       {/* Row 3 */}

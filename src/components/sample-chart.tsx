@@ -26,6 +26,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { ToggleGroup, ToggleGroupItem } from "@/components/ui/toggle-group";
+import { usePeriod } from "@/context/period-context";
 
 export const description = "An interactive area chart";
 
@@ -135,21 +136,15 @@ const chartConfig = {
 
 export function SampleChart() {
   const isMobile = useIsMobile();
-  const [timeRange, setTimeRange] = React.useState("90d");
-
-  React.useEffect(() => {
-    if (isMobile) {
-      setTimeRange("7d");
-    }
-  }, [isMobile]);
+  const { period, setPeriod } = usePeriod();
 
   const filteredData = chartData.filter((item) => {
     const date = new Date(item.date);
     const referenceDate = new Date("2024-06-30");
     let daysToSubtract = 90;
-    if (timeRange === "30d") {
+    if (period === "30d") {
       daysToSubtract = 30;
-    } else if (timeRange === "7d") {
+    } else if (period === "7d") {
       daysToSubtract = 7;
     }
     const startDate = new Date(referenceDate);
@@ -170,8 +165,8 @@ export function SampleChart() {
         <CardAction>
           <ToggleGroup
             type="single"
-            value={timeRange}
-            onValueChange={setTimeRange}
+            value={period}
+            onValueChange={setPeriod}
             variant="outline"
             className="hidden *:data-[slot=toggle-group-item]:!px-4 @[767px]/card:flex"
           >
@@ -179,7 +174,7 @@ export function SampleChart() {
             <ToggleGroupItem value="30d">Last 30 days</ToggleGroupItem>
             <ToggleGroupItem value="7d">Last 7 days</ToggleGroupItem>
           </ToggleGroup>
-          <Select value={timeRange} onValueChange={setTimeRange}>
+          <Select value={period} onValueChange={setPeriod}>
             <SelectTrigger
               className="flex w-40 **:data-[slot=select-value]:block **:data-[slot=select-value]:truncate @[767px]/card:hidden"
               size="sm"

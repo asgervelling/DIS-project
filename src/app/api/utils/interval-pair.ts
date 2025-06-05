@@ -26,12 +26,8 @@ export function intervalPair(period: Period | string): IntervalPair<string> {
   const hour = pad(cutoffDate.getHours());
   const min = pad(cutoffDate.getMinutes());
   const s = pad(cutoffDate.getSeconds());
-  // const cutoffTimestamp = `timestamp '${year}-${month}-${date} ${hour}:${min}:${s}'`;
-  const cutoffTimestamp = `timestamp '${cutoff.replace("T", " ").slice(0, 19)}'`
-
-  console.log(cutoffDate);
-  console.log(cutoffTimestamp);
-
+  const cutoffTimestamp = `timestamp '${year}-${month}-${date} ${hour}:${min}:${s}'`;
+  
   switch (period) {
     case "24h":
       return {
