@@ -1,18 +1,24 @@
+import { NextRequest, NextResponse } from "next/server";
+
 import { pool } from "@/lib/db";
-import { NextResponse } from "next/server";
+import { whereClauseOfPeriod } from "../utils/where-period";
 
 /**
  * Sales over Time.
  * Date i = sum (rate * quantity + tax - discount).
  */
-export async function GET() {
+export async function GET(req: NextRequest) {
   try {
+    const period = req.nextUrl.searchParams.get("period") ?? "7d";
+    const whereClause = whereClauseOfPeriod(period);
+
     const { rows } = await pool.query(
       `SELECT
-        DATE(t.date) AS day,
+        DATE(tr.date) AS day,
         SUM(i.rate * i.quantity + i.tax - i.discount) AS revenue
       FROM transaction_items i
-      JOIN transactions t ON i.tid = t.tid
+      JOIN transactions tr ON i.tid = tr.tid
+      ${whereClause}
       GROUP BY day
       ORDER BY day`
     );
