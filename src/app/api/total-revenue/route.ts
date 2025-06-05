@@ -13,8 +13,14 @@ export async function GET() {
       `SELECT SUM(rate * quantity + tax - discount)
       AS total_revenue FROM transaction_items`
     );
-    const total_revenue = rows[0]["total_revenue"];
-    return NextResponse.json({ total_revenue });
+    const totalRevenue = rows[0]["total_revenue"];
+    if (!totalRevenue) {
+      return NextResponse.json(
+        { error: "No result for query" },
+        { status: 404 }
+      )
+    }
+    return NextResponse.json({ totalRevenue });
   } catch (error) {
     return NextResponse.json({ error }, { status: 500 });
   }
