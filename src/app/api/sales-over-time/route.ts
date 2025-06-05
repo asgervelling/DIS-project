@@ -8,8 +8,9 @@ import { NextResponse } from "next/server";
 export async function GET() {
   try {
     const { rows } = await pool.query(
-      `SELECT DATE(t.date) AS day,
-      SUM(i.rate * i.quantity + i.tax - i.discount) AS revenue
+      `SELECT
+        DATE(t.date) AS day,
+        SUM(i.rate * i.quantity + i.tax - i.discount) AS revenue
       FROM transaction_items i
       JOIN transactions t ON i.tid = t.tid
       GROUP BY day
