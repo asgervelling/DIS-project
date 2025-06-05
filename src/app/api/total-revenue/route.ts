@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 
 import { pool } from "@/lib/db";
-import { whereClauseOfPeriod } from "../utils/where-period";
+import { intervalPair } from "../utils/interval-pair";
 
 /**
  * Total revenue = sum (rate * quantity + tax - discount).
@@ -12,22 +12,26 @@ import { whereClauseOfPeriod } from "../utils/where-period";
 export async function GET(req: NextRequest) {
   try {
     const period = req.nextUrl.searchParams.get("period") ?? "7d";
-    const whereClause = whereClauseOfPeriod(period);
+    const intervals = intervalPair(period);
 
-    const { rows } = await pool.query(
+    const current = await pool.query(
       `SELECT SUM(rate * quantity + tax - discount)
       AS total_revenue FROM transaction_items t
       JOIN transactions tr ON t.tid = tr.tid
-      ${whereClause}`
+      WHERE ${intervals.current}`
     );
-    const totalRevenue = rows[0]["total_revenue"];
-    if (!totalRevenue) {
-      return NextResponse.json(
-        { error: "No result for query" },
-        { status: 404 }
-      )
-    }
-    return NextResponse.json({ totalRevenue });
+
+    const previous = await pool.query(
+      `SELECT SUM(rate * quantity + tax - discount)
+      AS total_revenue FROM transaction_items t
+      JOIN transactions tr ON t.tid = tr.tid
+      WHERE ${intervals.previous}`
+    );
+    
+    return NextResponse.json({ 
+      current: current.rows,
+      previous: previous.rows
+    });
   } catch (error) {
     return NextResponse.json({ error }, { status: 500 });
   }

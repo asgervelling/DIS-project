@@ -97,13 +97,17 @@ export default function Page() {
 type DummyKPICardProps = {
   label: string;
   value: string;
-  pctChange: number;
+  pctChange: number; // | undefined
 };
 
-// function KPICardTotalRevenue() {
-//   const { period } = usePeriod();
-//   const { date, error, isLoading } = useKpi("/api/total-revenue", period)
-// }
+function KPICardTotalRevenue() {
+  const { period } = usePeriod();
+  const { data, error, isLoading } = useKpi("/api/total-revenue", period);
+
+  if (isLoading) return <div>Loading...</div>;
+  if (error) return <div>Error: {error}</div>;
+  return <div>Oh right, we need pctChange</div>;
+}
 
 function KPICard() {}
 
