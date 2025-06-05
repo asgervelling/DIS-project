@@ -15,7 +15,7 @@ export default function TotalProfit() {
     return (
       <KPICard
         label="Total Profit"
-        value={isLoading ? "Loading..." : error ? `Error` : "-"}
+        value={isLoading ? "Loading..." : error ? `${String(error).slice(0, 23)}` : "-"}
         current={undefined}
         previous={undefined}
       />

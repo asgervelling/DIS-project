@@ -14,8 +14,8 @@ export default function TotalCost() {
   if (isLoading || error || !data)
     return (
       <KPICard
-        label="Total Cost"
-        value={isLoading ? "Loading..." : error ? `Error` : "-"}
+        label="Profit Margin"
+        value={isLoading ? "Loading..." : error ? `${String(error).slice(0, 23)}` : "-"}
         current={undefined}
         previous={undefined}
       />
