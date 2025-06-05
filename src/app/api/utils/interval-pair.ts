@@ -1,6 +1,11 @@
 import { Period } from "@/period";
 
-type IntervalPair = { current: string; previous: string };
+export type IntervalPair<T> = { current: T; previous: T };
+
+const p: IntervalPair<{ total_revenue: string | undefined }> = {
+  current: { total_revenue: "0" },
+  previous: { total_revenue: undefined }
+}
 
 /**
  * Given a Period, return two SQL intervals,
@@ -11,7 +16,7 @@ type IntervalPair = { current: string; previous: string };
  * Return an IntervalPair, where `previous` and `current`
  * are conditions for WHERE clauses.
  */
-export function intervalPair(period: Period | string): IntervalPair {
+export function intervalPair(period: Period | string): IntervalPair<string> {
   switch (period) {
     case "24h":
       return {

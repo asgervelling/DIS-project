@@ -1,11 +1,13 @@
 import { NextRequest, NextResponse } from "next/server";
 
 import { pool } from "@/lib/db";
-import { intervalPair } from "../utils/interval-pair";
+import { IntervalPair, intervalPair } from "../utils/interval-pair";
+
+export type RevenuePair = IntervalPair<{ total_revenue: number | undefined }>;
 
 /**
  * Total revenue = sum (rate * quantity + tax - discount).
- * 
+ *
  * The rate is the price of an item, excluding tax.
  * Similarly, tax is not a part of profit calculation, rate is.
  */
@@ -27,11 +29,11 @@ export async function GET(req: NextRequest) {
       JOIN transactions tr ON t.tid = tr.tid
       WHERE ${intervals.previous}`
     );
-    
-    return NextResponse.json({ 
-      current: current.rows,
-      previous: previous.rows
-    });
+
+    return NextResponse.json({
+      current: current.rows[0],
+      previous: previous.rows[0],
+    }) as NextResponse<RevenuePair>;
   } catch (error) {
     return NextResponse.json({ error }, { status: 500 });
   }
