@@ -122,7 +122,7 @@ async function populateDb(datasetPath: string): Promise<void> {
 }
 
 /**
- * Generate a random number between 0.3 and 0.7 * the cost
+ * Generate a random number between 0.3 and 0.7 * the price
  * of a menu item.
  */
 function randomCost(itemPrice: number): number {
