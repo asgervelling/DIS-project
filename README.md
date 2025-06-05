@@ -24,12 +24,6 @@ To get it running, you will need Docker. Run
 sudo docker compose up -d
 ```
 
-You can check that the records have been created by running postgres in the docker container:
-
-```bash
-sudo docker exec -it postgres bash
-```
-
 #### Seeding the Database
 
 Now that you have a postgres instance up and running, you can start populating the database. \
@@ -141,25 +135,27 @@ src/db
 └── transform-dataset.ts
 ```
 
-The API with all the SQL queries for the dashboard are defined in the API routes in `src/app/api/`:
+### API
+
+The API with all the SQL queries for the dashboard are defined in the API routes in `src/app/api/` and can be found at
 
 ```
-src/app/api/
-├── profit-margin
-│   └── route.ts
-├── sales-over-time
-│   └── route.ts
-├── top-5-products
-│   └── route.ts
-├── total-cost
-│   └── route.ts
-├── total-profit
-│   └── route.ts
-├── total-revenue
-│   └── route.ts
-└── utils
-    └── interval-pair.ts
+http://localhost:3000/api/sales-over-time
+http://localhost:3000/api/top-5-products
+http://localhost:3000/api/total-revenue
+http://localhost:3000/api/total-cost
+http://localhost:3000/api/total-profit
+http://localhost:3000/api/profit-margin
+http://localhost:3000/api/transactions
 ```
+
+Alternatively, you can specify a period in `{ "24h", "7d", "30d", "ytd", "1y", "all" }`, i.e.
+
+```bash
+http://localhost:3000/api/profit-margin?period=7d # (default)
+```
+
+I have used a small Excel spreadsheet, `data/Cafe_Data_20_rows_excel_check.xlsx`, to gauge whether my API routes return the right SQL aggregations. I get the same results in Excel.
 
 ### Components of the Dashboard
 
@@ -192,3 +188,7 @@ Here is the wireframe for the dashboard page:
 ### Frontend Implementation
 
 The frontend is mostly [ShadCN/UI components](https://ui.shadcn.com/) making calls to my API.
+
+Here is what it looks like with the full dataset loaded:
+
+![screenshot](readme/screenshot.png)
