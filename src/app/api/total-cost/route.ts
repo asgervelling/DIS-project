@@ -1,7 +1,9 @@
 import { NextRequest, NextResponse } from "next/server";
 
 import { pool } from "@/lib/db";
-import { intervalPair } from "../utils/interval-pair";
+import { IntervalPair, intervalPair } from "../utils/interval-pair";
+
+export type CostPair = IntervalPair<{ total_cost: number | undefined }>;
 
 /**
  * Total cost = sum (cost * quantity).
@@ -30,9 +32,9 @@ export async function GET(req: NextRequest) {
     );
     
     return NextResponse.json({ 
-      current: current.rows,
-      previous: previous.rows
-    });
+      current: current.rows[0],
+      previous: previous.rows[0]
+    }) as NextResponse<CostPair>;;
   } catch (error) {
     return NextResponse.json({ error }, { status: 500 });
   }

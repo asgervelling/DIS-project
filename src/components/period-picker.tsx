@@ -1,8 +1,18 @@
+"use client";
 import { ToggleGroup, ToggleGroupItem } from "@/components/ui/toggle-group";
+import { usePeriod } from "@/context/period-context";
+import { Period } from "@/period";
 
 export function PeriodPicker() {
+  const { setPeriod } = usePeriod();
   return (
-    <ToggleGroup type="single" size="lg" variant="outline">
+    <ToggleGroup
+      type="single"
+      size="lg"
+      variant="outline"
+      defaultValue="7d"
+      onValueChange={(value) => setPeriod(value as Period)}
+    >
       <ToggleGroupItem value="24h" aria-label="Select previous 24 hours">
         24H
       </ToggleGroupItem>
