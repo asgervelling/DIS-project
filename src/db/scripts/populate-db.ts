@@ -49,15 +49,20 @@ async function populateDb(datasetPath: string): Promise<void> {
       // Create menu item
       let compositeKey = `${r.itemDesc}|${r.category}`;
       let iid = menuItemIds.get(compositeKey);
+
+      // The dataset does not have costs, but we want to calculate
+      // profit. Get a random, somewhat realistic cost to make
+      const itemPrice = r.total / r.quantity;
+      const itemCost = randomCost(itemPrice);
+      
       if (!iid) {
-        // We will have to set the cost manually later
         const res = await client.query(
           `INSERT INTO menu_items
           (name, price, cost, tax_rate, discount_rate, cid)
           VALUES ($1, $2, $3, $4, $5, $6)
           ON CONFLICT (name, cid)
           DO NOTHING RETURNING iid`,
-          [r.itemDesc, r.rate, 0, r.tax / r.rate, r.discount / r.rate, cid]
+          [r.itemDesc, r.rate, itemCost, r.tax / r.rate, r.discount / r.rate, cid]
         );
         iid = res.rows[0].iid;
         if (!iid) {
@@ -88,6 +93,7 @@ async function populateDb(datasetPath: string): Promise<void> {
       // Create transaction item
       const lineNo = (lineNumbers.get(r.billNo) || 0) + 1;
       lineNumbers.set(r.billNo, lineNo);
+
       await client.query(
         `INSERT INTO transaction_items
         (tid, line_no, iid, quantity, rate, tax, discount, total)
@@ -113,6 +119,15 @@ async function populateDb(datasetPath: string): Promise<void> {
 
   console.log(`Populated database with ${i} records.`);
   await client.end();
+}
+
+/**
+ * Generate a random number between 0.3 and 0.7 * the cost
+ * of a menu item.
+ */
+function randomCost(itemPrice: number): number {
+  const costProportion = 0.3 + Math.random() * 0.4;
+  return itemPrice * costProportion;
 }
 
 const args = process.argv.slice(2);
