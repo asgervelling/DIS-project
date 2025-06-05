@@ -47,7 +47,7 @@ async function populateDb(datasetPath: string): Promise<void> {
       }
 
       // Create menu item
-      let compositeKey = `${r.itemDesc}|${r.category}`;
+      const compositeKey = `${r.itemDesc}|${r.category}`;
       let iid = menuItemIds.get(compositeKey);
 
       // The dataset does not have costs, but we want to calculate

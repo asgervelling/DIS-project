@@ -55,7 +55,6 @@ export function DataTable<TData, TValue>({
   return (
     <Card>
       <CardHeader className="relative">
-        {/* <CardDescription>Total Revenue</CardDescription> */}
         <CardTitle className="text-xl font-semibold tabular-nums">
           Transactions
         </CardTitle>

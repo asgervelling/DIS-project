@@ -36,10 +36,7 @@ export function SalesOverTimeChart() {
     "/api/sales-over-time",
     period
   );
-
-  // if (error) return <>Error: {error}</>;
-  // if (isLoading || !data) return <>Loading...</>;
-
+  
   return (
     <Card className="@container/card">
       <CardHeader>

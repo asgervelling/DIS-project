@@ -1,6 +1,3 @@
-import { char, choice, many, sequenceOf } from "arcsecond";
-import { digits, nonZero } from "./digits";
-
 /**
  * <integer>     ::= '"' <int> '"'
  * <int>         ::= "0" | <signedInt>
@@ -10,7 +7,10 @@ import { digits, nonZero } from "./digits";
  * <digits>      ::= <digit> <digits> | ε
  * <nonZero>     ::= "1" | "2" | ... | "9"
  * <digit>       ::= "0" | <nonZero>
- */
+*/
+import { char, choice, sequenceOf } from "arcsecond";
+import { digits, nonZero } from "./digits";
+
 const positiveInt = sequenceOf([nonZero, digits])
   .map((xs) => xs.join(""));
 const negativeInt = sequenceOf([char("-"), positiveInt])

@@ -41,7 +41,7 @@ export default function RootLayout({
     <PeriodProvider>
       <html lang="en">
         <body
-          className={`${geistSans.variable} ${geistMono.variable} antialiased w-screen h-screen`}
+          className={`${geistSans.variable} ${geistMono.variable} antialiased w-screen `}
         >
           <SidebarProvider>
             <AppSidebar />
