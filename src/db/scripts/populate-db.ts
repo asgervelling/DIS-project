@@ -53,7 +53,7 @@ async function populateDb(datasetPath: string): Promise<void> {
       // The dataset does not have costs, but we want to calculate
       // profit. Get a random, somewhat realistic cost to make
       const itemPrice = r.total / r.quantity;
-      const itemCost = randomCost(itemPrice);
+      const itemCost = randomCost(itemPrice, r.itemDesc);
       
       if (!iid) {
         const res = await client.query(
@@ -125,9 +125,48 @@ async function populateDb(datasetPath: string): Promise<void> {
  * Generate a random number between 0.3 and 0.7 * the price
  * of a menu item.
  */
-function randomCost(itemPrice: number): number {
-  const costProportion = 0.3 + Math.random() * 0.4;
+function randomCost(itemPrice: number, itemDesc: string): number {
+  const rng = new RNG(
+    Array.from(itemDesc)
+      .reduce((acc, ch) => acc + ch.charCodeAt(0), 0)
+  );
+  
+  const costProportion = Number((0.3 + rng.nextFloat() * 0.4).toFixed(2));
   return itemPrice * costProportion;
+}
+
+/**
+ * In order to check that the calculations done with SQL
+ * queries are correct, I want to be able to use Excel
+ * with the same values of cost.
+ * Assigning totally random costs to menu items would
+ * make that check impossible.
+ * Therefore, we use a seeded random number generator
+ * that produces the same result, given the same seed.
+ * Credit goes to StackOverflow user orip:
+ * https://stackoverflow.com/a/424445/12819647
+ */
+class RNG {
+  private m = 0x80000000;
+  private a = 1103515245;
+  private c = 12345;
+  private state: number;
+
+  constructor(seed: number | undefined) {
+    this.state = seed
+      ? seed
+      : Math.floor(Math.random()) * (this.m - 1);
+  }
+
+  nextInt() {
+    this.state = (this.a * this.state + this.c) % this.m;
+    return this.state;
+  }
+
+  nextFloat() {
+    // returns in range [0,1]
+    return this.nextInt() / (this.m - 1);
+  }
 }
 
 const args = process.argv.slice(2);
