@@ -56,7 +56,7 @@ export function DataTable<TData, TValue>({
     <Card>
       <CardHeader className="relative">
         <CardTitle className="text-xl font-semibold tabular-nums">
-          Transactions
+          Latest Transactions
         </CardTitle>
       </CardHeader>
 
