@@ -121,7 +121,7 @@ Don't know the canonical way to express this, but:
 As per the assignment, I have created parsers from context-free grammars. They are located in `src/db/parsing/`. \
 These parsers are used in seeding the database.
 
-Most modules relevant to this course live inside `src/db`:
+Most modules relevant to this course live inside `src/db`.:
 
 ```
 src/db
@@ -139,6 +139,26 @@ src/db
 │   └── reset-db.ts
 ├── serialize.ts
 └── transform-dataset.ts
+```
+
+The API with all the SQL queries for the dashboard are defined in the API routes in `src/app/api/`:
+
+```
+src/app/api/
+├── profit-margin
+│   └── route.ts
+├── sales-over-time
+│   └── route.ts
+├── top-5-products
+│   └── route.ts
+├── total-cost
+│   └── route.ts
+├── total-profit
+│   └── route.ts
+├── total-revenue
+│   └── route.ts
+└── utils
+    └── interval-pair.ts
 ```
 
 ### Components of the Dashboard
@@ -169,3 +189,7 @@ All in rupees, since the dataset is Indian.
 Here is the wireframe for the dashboard page:
 
 ![dashboard_wireframe](readme/dashboard_wireframe.jpg)
+
+### Frontend Implementation
+
+The frontend is mostly [ShadCN/UI components](https://ui.shadcn.com/) making calls to my API.
