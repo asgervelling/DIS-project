@@ -19,8 +19,6 @@ sudo docker compose up -d
 You can check that the records have been created by running postgres in the docker container:
 
 ```bash
-# You might have to remove other containers named postgres first,
-# if you are a TA and grading this
 sudo docker exec -it postgres bash
 ```
 
