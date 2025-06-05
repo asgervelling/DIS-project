@@ -22,7 +22,7 @@ const sidebarLinks = {
     },
     {
       title: "New Transaction",
-      url: "/new",
+      url: "#",
     },
   ],
 };
@@ -31,7 +31,6 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
   return (
     <Sidebar {...props}>
       <SidebarHeader>
-        {/* <SearchForm /> */}
         <div className="h-8" />
       </SidebarHeader>
       <SidebarContent>
@@ -43,7 +42,13 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
               <SidebarMenu key={item.title}>
                 <SidebarMenuItem key={item.title}>
                   <SidebarMenuButton asChild isActive={item.isActive}>
-                    <a href={item.url}>{item.title}</a>
+                    <a href={item.url}>
+                      {item.title === "New Transaction" ? (
+                        <span className="line-through">{item.title}</span>
+                      ) : (
+                        item.title
+                      )}
+                    </a>
                   </SidebarMenuButton>
                 </SidebarMenuItem>
               </SidebarMenu>

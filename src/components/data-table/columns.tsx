@@ -2,14 +2,7 @@ import { ColumnDef } from "@tanstack/react-table";
 import { ArrowUpDown } from "lucide-react";
 
 import { Button } from "../ui/button";
-
-export type Transaction = {
-  date: string;
-  billNo: string;
-  revenue: number;
-  items: number;
-  profit: number;
-};
+import { Transaction } from "@/app/api/transactions/route";
 
 export const columns: ColumnDef<Transaction>[] = [
   {

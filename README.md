@@ -181,8 +181,7 @@ It includes a global period picker (24H, 7D, 30D, YTD, 1Y and Max) and
 - Two charts:
   - Sales over time (line chart)
   - Top products by profit (bar chart, top 5)
-- Transactions (scrollable list view, by date, descending)
-  - I did not have time for this one, but a mock data version is included in the dashboard.
+- Transactions (scrollable list view, last 100)
 
 All in rupees, since the dataset is Indian.
 
